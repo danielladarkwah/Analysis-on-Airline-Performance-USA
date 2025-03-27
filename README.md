@@ -6,3 +6,4 @@ I run:
 - A glue crawler to parse the CSV 
 - Created a schema that can consume in AWS Athena using the AWS Learner Lab. 
 - Imported the dataset to S3 and then used a Glue Crawler to setup Athena to query the data.
+- Visualizations were made using quicksight in AWS 
