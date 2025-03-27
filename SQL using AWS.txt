@@ -1,0 +1,82 @@
+Daniella Opoku Darkwah
+  
+
+--  Rank airlines by year: what are the airlines with the most flights by year? Any trends worth noting?
+SELECT
+year,
+  iata_code_operating_airline AS airline,
+  COUNT(*) AS total_flights
+FROM  "otp_2018_1_to_2023_1_copy_3"."onflightdata" 
+GROUP BY
+  year,
+  iata_code_operating_airline
+ORDER BY
+  year DESC, total_flights DESC;
+
+
+-- When is the best time of day/day of week/time of year to fly to minimise delays?
+
+SELECT
+ CAST((crsdeptime / 100) AS INT) AS hour_of_day,
+    dayofweek, 
+    month, 
+    Round(AVG(depdelay), 2) as average_delay
+FROM 
+    "otp_2018_1_to_2023_1_copy_3"."onflightdata" 
+WHERE 
+    cancelled = 0
+GROUP BY 
+    CAST((crsdeptime / 100) AS INT), 
+    dayofweek, 
+    month
+ORDER BY 
+   average_delay
+   LIMIT 5;
+
+
+
+
+-- Do older planes suffer more delays?
+
+Not Applicable
+
+
+--  What percentage of flights delayed by weather per airport?
+
+SELECT 
+    Year, 
+    Month, -- Replace with Quarter if you want quarterly data
+    Origin, 
+    Dest, 
+    COUNT(*) AS Flight_Count
+FROM 
+   "otp_2018_1_to_2023_1_copy_3"."onflightdata"
+GROUP BY 
+    Year, 
+    Month, -- Replace with Quarter if using quarterly data
+    Origin, 
+    Dest
+ORDER BY 
+    Year, 
+    Month, -- Replace with Quarter if using quarterly data
+    Origin,
+    Dest;
+
+
+--  How does the number of people flying between different locations change over time?
+
+SELECT
+  year,
+  month,
+  origin,
+  dest,
+  COUNT(*) AS num_flights
+FROM
+ "otp_2018_1_to_2023_1_copy_3"."onflightdata"
+GROUP BY
+  year,
+  month,
+  origin,
+  dest
+ORDER BY
+  year DESC, month DESC, num_flights DESC;
